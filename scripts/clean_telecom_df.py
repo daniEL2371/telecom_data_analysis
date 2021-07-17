@@ -94,7 +94,7 @@ class CleanTelecomData:
             print("Method unknown")
             return df
     
-    def handle_missing_categorical_data_with_mean(self, df: pd.DataFrame, method="ffill"):
+    def handle_missing_categorical_data_with(self, df: pd.DataFrame, method="ffill"):
 
         numeric_data = ['int16', 'int32', 'int64',
                         'float16', 'float32', 'float64']
