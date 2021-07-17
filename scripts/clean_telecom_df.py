@@ -119,6 +119,19 @@ class CleanTelecomData:
             print("Method unknown")
             return df
 
+    def handle_outliers(self, df, col):
+        df = df.copy()
+        q1 = df[col].quantile(0.25)
+        q3 = df[col].quantile(0.75)
+
+        lower_bound = q1 - ((1.5) * (q3 - q1))
+        upper_bound = q3 + ((1.5) * (q3 - q1))
+
+        df[col] = np.where(df[col] < lower_bound, lower_bound, df[col])
+        df[col] = np.where(df[col] > upper_bound, upper_bound, df[col])
+
+        return df
+
     def convert_to_mega_bytes(self, df):
 
         df = self.__convert_bytes_to_megabytes(df, 'social_media_dl_(bytes)')
